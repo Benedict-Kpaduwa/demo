@@ -14,7 +14,7 @@ export const login = async (credentials: { email: string; password: string }) =>
 
 export const register = async (credentials: { name: string; email: string; password: string; confirmPassword: string }) => {
     try {
-        const response = await axios.post('/api/auth/signup', credentials, {
+        const response = await axios.post('/api/auth/register', credentials, {
             withCredentials: true,
         });
         return response.data.message;

@@ -60,34 +60,36 @@ export default function SignupPage() {
       localStorage.setItem("token", token);
       router.push("/dashboard");
     } catch (err) {
-      setErrors("Unable to create user");
+      setErrors({ ...errors, form: "Unable to create user" });
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
-      <div className="w-full max-w-md px-6">
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50 p-4 sm:p-6">
+      <div className="w-full max-w-md">
+        <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
               Create your account
             </h1>
-            <p className="mt-2 text-gray-600">Get started with our platform</p>
+            <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600">
+              Get started with our platform
+            </p>
           </div>
 
           {errors.form && (
-            <div className="mb-6 p-3 bg-red-50 text-red-600 rounded-lg text-sm">
+            <div className="mb-4 sm:mb-6 p-3 bg-red-50 text-red-600 rounded-lg text-xs sm:text-sm">
               {errors.form}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
               >
                 Full Name
               </label>
@@ -97,21 +99,23 @@ export default function SignupPage() {
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border ${
                   errors.name ? "border-red-300" : "border-gray-300"
-                } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-500`}
-                placeholder="John Doe"
+                } rounded-lg focus:ring-2 text-gray-500 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-400`}
+                placeholder="Benedict"
                 required
               />
               {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-600">
+                  {errors.name}
+                </p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
               >
                 Email Address
               </label>
@@ -121,22 +125,24 @@ export default function SignupPage() {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border ${
                   errors.email ? "border-red-300" : "border-gray-300"
-                } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-500`}
-                placeholder="you@example.com"
+                } rounded-lg focus:ring-2 text-gray-500 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-400`}
+                placeholder="ben@example.com"
                 required
                 autoComplete="email"
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-600">
+                  {errors.email}
+                </p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
               >
                 Password
               </label>
@@ -146,15 +152,17 @@ export default function SignupPage() {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border ${
                   errors.password ? "border-red-300" : "border-gray-300"
-                } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-500`}
+                } rounded-lg focus:ring-2 text-gray-500 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-400`}
                 placeholder="••••••••"
                 required
                 autoComplete="new-password"
               />
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-600">
+                  {errors.password}
+                </p>
               )}
               <p className="mt-1 text-xs text-gray-500">
                 Must be at least 8 characters
@@ -164,7 +172,7 @@ export default function SignupPage() {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
               >
                 Confirm Password
               </label>
@@ -174,31 +182,31 @@ export default function SignupPage() {
                 type="password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border ${
                   errors.confirmPassword ? "border-red-300" : "border-gray-300"
-                } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-500`}
+                } rounded-lg focus:ring-2 text-gray-500 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-400`}
                 placeholder="••••••••"
                 required
                 autoComplete="new-password"
               />
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-xs sm:text-sm text-red-600">
                   {errors.confirmPassword}
                 </p>
               )}
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-start">
               <input
                 id="terms"
                 name="terms"
                 type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="mt-1 h-3 sm:h-4 w-3 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 required
               />
               <label
                 htmlFor="terms"
-                className="ml-2 block text-sm text-gray-700"
+                className="ml-2 block text-xs sm:text-sm text-gray-700"
               >
                 I agree to the{" "}
                 <Link
@@ -220,15 +228,14 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={isLoading}
-              //   onClick={handleSubmit}
-              className={`w-full py-3 px-4 rounded-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ${
+              className={`w-full py-2 sm:py-3 px-4 rounded-lg font-medium text-sm sm:text-base text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ${
                 isLoading ? "opacity-75 cursor-not-allowed" : ""
               }`}
             >
               {isLoading ? (
                 <span className="flex items-center justify-center">
                   <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -255,7 +262,7 @@ export default function SignupPage() {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-gray-500">
+          <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-500">
             Already have an account?{" "}
             <Link
               href="/login"

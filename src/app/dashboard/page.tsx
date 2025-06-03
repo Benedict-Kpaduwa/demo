@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useCallback } from "react";
 import SummaryCards from "./components/SummaryCards";
 import TransactionTable from "./components/TransactionTable";
@@ -35,7 +34,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <button className="text-gray-500 hover:text-gray-600 lg:hidden">
               <svg
@@ -52,7 +51,9 @@ export default function DashboardPage() {
                 />
               </svg>
             </button>
-            <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
+            <h1 className="text-lg sm:text-xl font-semibold text-gray-900">
+              Dashboard
+            </h1>
           </div>
           <div className="flex items-center">
             <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-medium">
@@ -61,17 +62,18 @@ export default function DashboardPage() {
           </div>
         </div>
       </header>
-      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-8">
+
+      <main className="mx-auto px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mb-6 sm:mb-8">
           {isLoading ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-lg shadow p-6 h-32 animate-pulse"
+                  className="bg-white rounded-lg shadow p-4 sm:p-6 h-28 sm:h-32 animate-pulse"
                 >
                   <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                  <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+                  <div className="h-6 sm:h-8 bg-gray-200 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -83,24 +85,22 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Data Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Transactions Table (2/3 width) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="bg-white rounded-lg shadow overflow-hidden lg:col-span-2">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg font-medium text-gray-900">
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-base sm:text-lg font-medium text-gray-900">
                 Recent Transactions
               </h2>
-              <button className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+              <button className="text-xs sm:text-sm font-medium text-indigo-600 hover:text-indigo-500">
                 View All
               </button>
             </div>
             {isLoading ? (
-              <div className="p-6 space-y-4">
+              <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                 {[...Array(5)].map((_, i) => (
                   <div key={i} className="flex justify-between">
-                    <div className="h-4 bg-gray-200 rounded w-1/3 animate-pulse"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                    <div className="h-3 sm:h-4 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+                    <div className="h-3 sm:h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
                   </div>
                 ))}
               </div>
@@ -109,10 +109,9 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Recent Activity (1/3 width) */}
           <div className="bg-white rounded-lg shadow overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+              <h2 className="text-base sm:text-lg font-medium text-gray-900">
                 Recent Activity
               </h2>
             </div>
@@ -120,21 +119,20 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Analytics Section */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 className="text-lg font-medium text-gray-900">
+          <div className="px-4 sm:px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
+            <h2 className="text-base sm:text-lg font-medium text-gray-900">
               Monthly Analytics
             </h2>
-            <div className="relative">
-              <select className="appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+            <div className="relative w-full sm:w-auto">
+              <select className="appearance-none bg-gray-50 border border-gray-300 text-gray-700 py-1 sm:py-2 px-3 sm:px-4 pr-8 rounded leading-tight focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm w-full">
                 <option>Last 30 days</option>
                 <option>Last 90 days</option>
                 <option>This year</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
-                  className="fill-current h-4 w-4"
+                  className="fill-current h-3 w-3 sm:h-4 sm:w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                 >
@@ -143,7 +141,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-          <div className="p-6 h-80 flex items-center justify-center text-gray-500">
+          <div className="p-4 sm:p-6 h-60 sm:h-80 flex items-center justify-center text-sm sm:text-base text-gray-500">
             Analytics chart will appear here
           </div>
         </div>

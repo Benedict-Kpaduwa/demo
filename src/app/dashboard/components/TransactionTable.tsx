@@ -120,7 +120,7 @@ export default function TransactionTable({
           <input
             type="text"
             placeholder="Search transactions by description, amount, or date..."
-            className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm placeholder:text-gray-400"
+            className="w-full pl-10 pr-10 py-3 border text-gray-500 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm placeholder:text-gray-400"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           />
