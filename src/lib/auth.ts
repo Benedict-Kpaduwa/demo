@@ -1,4 +1,3 @@
-// src/lib/auth.ts
 import axios from 'axios';
 
 export const login = async (credentials: { email: string; password: string }) => {

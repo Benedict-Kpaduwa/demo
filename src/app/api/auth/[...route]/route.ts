@@ -19,7 +19,6 @@ export async function POST(request: Request, { params }: { params: { route: stri
                 return NextResponse.json({ message: data.message || 'Login failed' }, { status: res.status });
             }
 
-            // Extract token from backend response or Set-Cookie header
             const setCookie = res.headers.get('set-cookie');
             const response = NextResponse.json({ message: 'Login successful' });
 

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export async function GET(request: Request) {
     try {
-        // Extract the 'cookie' header from the incoming request
         const cookieHeader = request.headers.get('cookie');
 
         const response = await axios.get('http://localhost:8000/api/transactions', {

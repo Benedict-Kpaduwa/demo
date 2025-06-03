@@ -6,15 +6,13 @@ export const useWebSocket = (onNewTransaction: (transaction: Transaction) => voi
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Extract ws-token from cookies
-        // In your WebSocket hook, try using the same token as your API calls
         const token = document.cookie
             .split('; ')
-            .find(row => row.startsWith('token=')) // Not ws-token
+            .find(row => row.startsWith('token='))
             ?.split('=')[1];
         const wsUrl = token
             ? `ws://localhost:8000/transactions?token=${encodeURIComponent(token)}`
-            : 'ws://localhost:8000/transactions'; // Fallback for testing
+            : 'ws://localhost:8000/transactions';
 
         const ws = new WebSocket(wsUrl);
 
