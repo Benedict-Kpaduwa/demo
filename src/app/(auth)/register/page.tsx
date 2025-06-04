@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { register } from "@/lib/auth";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ export default function SignupPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) newErrors.name = "Full name is required";
+    if (!formData.name.trim()) newErrors.name = "Username is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -51,16 +52,22 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      toast.error("Please fix the form errors");
+      return;
+    }
 
     setIsLoading(true);
 
     try {
-      const token = await register(formData);
-      localStorage.setItem("token", token);
-      router.push("/dashboard");
+      await register(formData);
+      toast.success("Account created successfully! Redirecting...");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1500);
     } catch (err) {
       setErrors({ ...errors, form: "Unable to create user" });
+      toast.error("Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -68,6 +75,33 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50 p-4 sm:p-6">
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#fff",
+            color: "#374151",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+            borderRadius: "0.5rem",
+            padding: "0.75rem 1rem",
+            fontSize: "0.875rem",
+          },
+          success: {
+            iconTheme: {
+              primary: "#10B981",
+              secondary: "#fff",
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: "#EF4444",
+              secondary: "#fff",
+            },
+          },
+        }}
+      />
+
       <div className="w-full max-w-md">
         <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
           <div className="text-center mb-6 sm:mb-8">
@@ -91,7 +125,7 @@ export default function SignupPage() {
                 htmlFor="name"
                 className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
               >
-                Full Name
+                Username
               </label>
               <input
                 id="name"

@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { login } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -20,9 +21,13 @@ export default function LoginPage() {
 
     try {
       await login(credentials);
-      router.push("/dashboard");
+      toast.success("Login successful! Redirecting...");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1000);
     } catch (err) {
-      setError("Invalid username or password. Please try again.");
+      setError("Invalid email or password. Please try again.");
+      toast.error("Invalid email or password");
     } finally {
       setIsLoading(false);
     }
@@ -30,6 +35,33 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50 p-4 sm:p-6">
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#fff",
+            color: "#374151",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+            borderRadius: "0.5rem",
+            padding: "0.75rem 1rem",
+            fontSize: "0.875rem",
+          },
+          success: {
+            iconTheme: {
+              primary: "#10B981",
+              secondary: "#fff",
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: "#EF4444",
+              secondary: "#fff",
+            },
+          },
+        }}
+      />
+
       <div className="w-full max-w-md">
         <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
           <div className="text-center mb-6 sm:mb-8">
@@ -50,22 +82,22 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div>
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
               >
-                Username
+                Email
               </label>
               <input
-                id="username"
+                id="email"
                 type="text"
-                value={credentials.username}
+                value={credentials.email}
                 onChange={(e) =>
-                  setCredentials({ ...credentials, username: e.target.value })
+                  setCredentials({ ...credentials, email: e.target.value })
                 }
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border text-gray-500 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-gray-400"
-                placeholder="Enter your username"
+                placeholder="Enter your email"
                 required
-                autoComplete="username"
+                autoComplete="email"
               />
             </div>
 
